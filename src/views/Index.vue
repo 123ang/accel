@@ -4,14 +4,17 @@
       <div class="card-content">
         <i class="material-icons delete" @click="deletemeeting(meeting.id)">delete</i>
         <h2 class="indigo-text">{{ meeting.title }}</h2>
-        <ul class="ingredients">
-          <li v-for="(ing, index) in meeting.ingredients" :key="index">
-            <span class="chip">{{ ing }}</span>
+        <v-row>Meeting Date: {{ meeting.date }}</v-row>
+        <v-row>Time: {{ meeting.start_time }} - {{ meeting.end_time }}</v-row>
+        <ul class="members">
+         
+          <li v-for="(mem, index) in meeting.members" :key="index">
+            <span class="chip">{{ mem }}</span>
           </li>
         </ul>
       </div>
       <span class="btn-floating btn-large halfway-fab pink">
-        <router-link :to="{ name: 'Editmeeting', params: {meeting_slug: meeting.slug}}">
+        <router-link :to="{ name: 'Editmeeting', params: {meeting_id: meeting.id}}">
           <i class="material-icons edit">edit</i>
         </router-link>
       </span>
@@ -63,10 +66,10 @@ export default {
   text-align: center;
   margin-top: 0;
 }
-.index .ingredients{
+.index .members{
   margin: 30px auto;
 }
-.index .ingredients li{
+.index .members li{
   display: inline-block;
 }
 .index .delete{
