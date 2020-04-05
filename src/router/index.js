@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Index from '@/views/Index.vue'
 import AddMeeting from '@/views/AddMeeting'
 import EditMeeting from '@/views/EditMeeting'
+import Login from '@/views/Login'
 
 Vue.use(VueRouter)
 
@@ -18,11 +19,17 @@ const routes = [
     component: AddMeeting
   },
   {
-    path: '/edit-meeting/:meeting_id',
+    path: '/EditMeeting',
     name: 'EditMeeting',
     component: EditMeeting
-  }
- 
+  },
+  {
+    path: '/Login',
+    name: 'Login',
+    component: Login
+  },
+
+
 ]
 
 const router = new VueRouter({

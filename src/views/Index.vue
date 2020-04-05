@@ -1,78 +1,110 @@
 <template>
   <div class="index container">
-    <div class="card" v-for="meeting in meetings" :key="meeting.id">
+    {{UserEmail}}
+
+    <div
+      class="card"
+      v-for="meeting in meetings"
+      :key="meeting.id"
+    >
       <div class="card-content">
-        <i class="material-icons delete" @click="deletemeeting(meeting.id)">delete</i>
+        <i
+          v-if="meeting.leader == UserEmail"
+          class="material-icons delete"
+          @click="deletemeeting(meeting.id)"
+        >delete</i>
         <h2 class="indigo-text">{{ meeting.title }}</h2>
         <v-row>Meeting Date: {{ meeting.date }}</v-row>
         <v-row>Time: {{ meeting.start_time }} - {{ meeting.end_time }}</v-row>
         <ul class="members">
-         
-          <li v-for="(mem, index) in meeting.members" :key="index">
+
+          <li
+            v-for="(mem, index) in meeting.members"
+            :key="index"
+          >
             <span class="chip">{{ mem }}</span>
           </li>
         </ul>
       </div>
-      <span class="btn-floating btn-large halfway-fab pink">
-        <router-link :to="{ name: 'Editmeeting', params: {meeting_id: meeting.id}}">
-          <i class="material-icons edit">edit</i>
-        </router-link>
-      </span>
+      <v-btn
+        v-if="meeting.leader == UserEmail"
+        fab
+        class="btn-floating btn-large halfway-fab pink"
+        v-on:click.prevent="editMeeting(meeting.id)"
+      >
+
+        <i class="material-icons edit">edit</i>
+
+      </v-btn>
     </div>
   </div>
 </template>
 
 <script>
-import db from '@/firebase/init'
-
+import db from "@/firebase/init";
 export default {
-  name: 'Index',
-  data(){
-    return{
+  name: "Index",
+  data() {
+    return {
       meetings: []
-    }
+    };
   },
   methods: {
-    deletemeeting(id){
+    editMeeting(id) {
+ 
+      this.$store.commit("EditCaseID", id);
+      this.$router.push("/EditMeeting");
+    },
+    deletemeeting(id) {
       // delete doc from firestore
-      db.collection('meetings').doc(id).delete()
-      .then(() => {
-        this.meetings = this.meetings.filter(meeting => {
-          return meeting.id != id
+      db.collection("meetings")
+        .doc(id)
+        .delete()
+        .then(() => {
+          this.meetings = this.meetings.filter(meeting => {
+            return meeting.id != id;
+          });
         })
-      }).catch(err => {
-        console.log(err)
-      })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
-  created(){
+  created() {
     // fetch data from firestore
-    db.collection('meetings').get()
-    .then(snapshot => {
-      snapshot.forEach(doc => {
-        let meeting = doc.data()
-        meeting.id = doc.id
-        this.meetings.push(meeting)
-      })
-    })
+    db.collection("meetings")
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          let meeting = doc.data();
+        
+          meeting.id = doc.id;
+          this.meetings.push({ ...meeting, id: doc.id });
+        });
+      });
+
+  },
+  computed: {
+    UserEmail() {
+      return this.$store.state.Email;
+    }
   }
-}
+};
 </script>
 
 <style>
-
-.index h2{
+.index h2 {
   font-size: 1.8em;
   text-align: center;
   margin-top: 0;
 }
-.index .members{
+.index .members {
   margin: 30px auto;
 }
-.index .members li{
+.index .members li {
   display: inline-block;
 }
-.index .delete{
+.index .delete {
   position: absolute;
   top: 4px;
   right: 4px;
