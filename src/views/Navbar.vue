@@ -14,6 +14,10 @@
           </router-link>
           </v-col>
           <v-col>
+          <span
+            v-if="isLoggedIn"
+            
+          >{{UserEmail}}</span>
           <v-btn 
           style="margin-left: 20px;
                 height: 70px;

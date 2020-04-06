@@ -46,7 +46,22 @@
               >
             </v-col>
           </v-row>
-
+        <div class="field description">
+          <label for="description">Meeting Description:</label>
+          <input
+            type="text"
+            name="description"
+            v-model="meeting.description"
+          >
+        </div>
+        <div class="field link">
+          <label for="link">Meeting Link:</label>
+          <input
+            type="text"
+            name="link"
+            v-model="meeting.link"
+          >
+        </div>
         </div>
         <div
           v-for="(mem, index) in meeting.members"
@@ -92,22 +107,22 @@
 <script>
 import db from "@/firebase/init";
 import firebase from "firebase";
-
 export default {
-  name: "EditSmoothie",
+  name: "EditMeeting",
   data() {
     return {
-      smoothie: null,
+      meeting: null,
       another: null,
       feedback: null,
-       meeting: []
+      members: [],
+      link: null,
+      description:null
     };
   },
   methods: {
     editMeetings() {
       if (this.meeting.title) {
         this.feedback = null;
-
         // update meetings in firestore
         db.collection("meetings")
           .doc(this.EditCaseID)
@@ -115,7 +130,10 @@ export default {
             title: this.meeting.title,
             start_time: this.meeting.start_time,
             end_time: this.meeting.end_time,
-            date: this.meeting.date
+            date: this.meeting.date,
+            members:this.meeting.members,
+            link: this.meeting.link,
+            description:this.meeting.description
           })
           .then(() => {
             this.$router.push({ name: "Index" });
@@ -127,7 +145,6 @@ export default {
         this.feedback = "You must enter a meetings title";
       }
     },
-
     addMember() {
       if (this.another) {
         db.collection("meetings")
@@ -135,7 +152,6 @@ export default {
           .update({
             members: firebase.firestore.FieldValue.arrayUnion(this.another)
           });
-
         // this.meeting.memberss.push(this.another);
         this.another = null;
         this.feedback = null;
@@ -143,7 +159,6 @@ export default {
         this.feedback = "You must enter a value to add another member";
       }
     },
-
     deleteMember(member) {
       db.collection("meetings")
         .doc(this.EditCaseID)
@@ -152,12 +167,10 @@ export default {
         });
     }
   },
-
   created() {
     // Getting real time update on the meeting data
     // this.EditCaseID is the doc.id that you need to edit the meeting data. This information is
     // taken from VueX store i form of EditCaseID. Go to computed to see how to extract data from VueX store.
-
     db.collection("meetings")
       .doc(this.EditCaseID)
       .onSnapshot(
@@ -169,7 +182,6 @@ export default {
         }
       );
     /*
-
     let ref = db
       .collection("smoothies")
       .where("slug", "==", this.$route.params.smoothie_slug);
@@ -179,7 +191,6 @@ export default {
         this.smoothie.id = doc.id;
       });
     });
-
     */
   },
   computed: {
@@ -187,7 +198,6 @@ export default {
       console.log("here", this.$store.state.EditCaseID);
       return this.$store.state.EditCaseID;
     },
-
     UserEmail() {
       return this.$store.state.Email;
     }
