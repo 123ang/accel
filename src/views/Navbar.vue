@@ -2,33 +2,98 @@
   <div class="navbar">
     <nav class="nav-extended indigo darken-2">
       <div class="nav-content">
-        <router-link :to="{ name: 'Index' }">
-          <span class="nav-title">Accel </span>
-        </router-link>
-        <a href="" class="btn-floating btn-large halfway-fab pink">
-          <router-link :to="{ name: 'AddMeeting' }">
-            <i class="material-icons">add</i>
+        <v-row>
+          <v-col>
+          <router-link :to="{ name: 'Index' }">
+            <v-img
+              contain
+              max-height="100px"
+              max-width="200px"
+              src="../assets/logo.png"
+            ></v-img>
           </router-link>
-        </a>
+          </v-col>
+          <v-col>
+          <v-btn 
+          style="margin-left: 20px;
+                height: 70px;
+                width: 100px;"
+            v-if="isLoggedIn"
+            v-on:click="dashboard"
+          >Dashboard</v-btn>
+          <v-btn         
+          style="margin-left: 20px;
+                height: 70px;
+                width: 100px;"
+            v-if="!isLoggedIn"
+            v-on:click="login"
+          >Login</v-btn>
+          <v-btn         
+          style="margin-left: 20px;
+                height: 70px;
+                width: 100px;"
+            v-if="!isLoggedIn"
+            v-on:click="register"
+          >Register</v-btn>
+          <v-btn        
+           style="margin-left: 20px;
+                height: 70px;
+                width: 100px;"
+            v-if="isLoggedIn"
+            v-on:click="logout"
+          >Logout</v-btn>
+          </v-col>
+        </v-row>
       </div>
     </nav>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Navbar',
-  data(){
-    return {
 
+<script>
+import store from "../store";
+import firebase from "firebase";
+export default {
+  name: "Navbar",
+  data() {
+    return {};
+  },
+
+  methods: {
+    logout: function() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.push("/");
+        });
+      store.commit("IsLoggedIn", false);
+    },
+    register: function() {
+      this.$router.push("/Register");
+    },
+    login: function() {
+      this.$router.push("/");
+    },
+    dashboard: function() {
+      this.$router.push("/Index");
+    }
+  },
+  computed: {
+    UserEmail() {
+      return this.$store.state.Email;
+    },
+    isLoggedIn() {
+      return this.$store.state.isLoggedIn;
     }
   }
-}
+};
 </script>
 
 <style>
-.navbar nav{
-  padding: 0 20px;
+.but {
+  margin-left: 20px;
+  height: 70px;
+  width: 100px;
 }
 </style>
-

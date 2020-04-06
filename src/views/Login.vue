@@ -1,55 +1,22 @@
 <template>
-  <form>
-    <br>
-
-    <v-card
-      class="mx-auto"
-      max-width="600"
-    >
-
-      <v-card
-        text
-        height=fit-content
-      >
-        <v-card-title class="headline justify-center">Staff login</v-card-title>
-        <v-card-text>
-
-          <v-text-field
-            label="Email"
-            v-model="email"
-          ></v-text-field>
-
-          <v-text-field
-            label="Password"
-            type="Password"
-            v-model="password"
-          ></v-text-field>
-          <div style="text-align:left;">
-
-            <v-btn
-              text
-              small
-              right
-              class="text-none"
-              v-on:click.prevent="forgotPassword()"
-            >Forgot my password</v-btn>
-
-          </div>
-        </v-card-text>
-        <v-card-actions>
-          <v-flex>
-            <v-btn
-              dark
-              v-on:click.prevent="login(email,password)"
-              type="submit"
-            >Login</v-btn>
-          </v-flex>
-        </v-card-actions>
-
-      </v-card>
-
-    </v-card>
-  </form>
+ <div class="register container z-depth-1">
+  <h2 class="center-align indigo-text">Login</h2>
+    <form @submit.prevent="addMeeting">
+      <div class="field email">
+        <label for="email">Email:</label>
+        <input type="email" id="email" v-model="email">
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" v-model="password">
+      </div>
+      <div class="field center-align">
+        <button v-on:click.prevent="login(email,password)" class="btn btn-large btn-extended grey lighten-4 black-text"  type="submit">Login</button>
+        <button v-on:click="register" class="btn btn-large btn-extended grey lighten-4 black-text">Register</button>
+      </div>
+    </form>
+</div>
+     
 </template>
 
 <script>
@@ -71,10 +38,9 @@ export default {
         .then(
           firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
-      
               store.commit("IsLoggedIn", true);
               store.commit("Email", user.email);
-              router.push("/");
+              router.push("/Index");
             } else {
               // User is signed out.
               // ...
@@ -84,10 +50,18 @@ export default {
 
       event.preventDefault();
     },
-
+      register: function(){
+        this.$router.push("/Register");
+      },
     forgotPassword: function() {
       this.$router.push("/ForgotPassword");
     }
   }
 };
 </script>
+
+<style>
+.btn {
+  margin-left: 40px ;
+}
+</style>

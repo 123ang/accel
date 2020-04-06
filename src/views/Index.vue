@@ -1,7 +1,14 @@
 <template>
   <div class="index container">
-    {{UserEmail}}
 
+    <a
+      href=""
+      class="btn-floating btn-large  right pink"
+    >
+      <router-link :to="{ name: 'AddMeeting' }">
+        <i class="material-icons">add</i>
+      </router-link>
+    </a> <br><br><br>
     <div
       class="card"
       v-for="meeting in meetings"
@@ -44,6 +51,7 @@
 import db from "@/firebase/init";
 export default {
   name: "Index",
+
   data() {
     return {
       meetings: []
@@ -51,7 +59,6 @@ export default {
   },
   methods: {
     editMeeting(id) {
- 
       this.$store.commit("EditCaseID", id);
       this.$router.push("/EditMeeting");
     },
@@ -77,12 +84,11 @@ export default {
       .then(snapshot => {
         snapshot.forEach(doc => {
           let meeting = doc.data();
-        
+
           meeting.id = doc.id;
           this.meetings.push({ ...meeting, id: doc.id });
         });
       });
-
   },
   computed: {
     UserEmail() {
