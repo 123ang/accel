@@ -23,9 +23,9 @@
         <h2 class="indigo-text">{{ meeting.title }}</h2>
         <v-row>Meeting Date: {{ meeting.date }}</v-row>
         <v-row>Time: {{ meeting.start_time }} - {{ meeting.end_time }}</v-row>
-        <ul class="members">
+        <ul class="members" v-if="meeting.leader == UserEmail">
 
-          <li
+          <li 
             v-for="(mem, index) in meeting.members"
             :key="index"
           >

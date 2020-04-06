@@ -14,6 +14,7 @@ const store = new Vuex.Store({
 
   },
   getters: {
+    
   },
   mutations: {
     IsLoggedIn(state, isLoggedIn) {

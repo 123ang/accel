@@ -69,7 +69,7 @@ export default {
         .auth()
         .signOut()
         .then(() => {
-          this.$router.push("/");
+          this.$router.push("/Login");
         });
       store.commit("IsLoggedIn", false);
     },
@@ -77,7 +77,7 @@ export default {
       this.$router.push("/Register");
     },
     login: function() {
-      this.$router.push("/");
+      this.$router.push("/Login");
     },
     dashboard: function() {
       this.$router.push("/Index");
