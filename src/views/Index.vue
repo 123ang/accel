@@ -23,8 +23,11 @@
         <h2 class="indigo-text">{{ meeting.title }}</h2>
         <v-row>Meeting Date: {{ meeting.date }}</v-row>
         <v-row>Time: {{ meeting.start_time }} - {{ meeting.end_time }}</v-row>
+        <v-row>Description: {{ meeting.description }}</v-row>
+        <v-row>Link: <a v-bind:href=" 'http://' + meeting.link " target="_blank">
+                                {{ meeting.link }}
+                            </a> </v-row>
         <ul class="members" v-if="meeting.leader == UserEmail">
-
           <li 
             v-for="(mem, index) in meeting.members"
             :key="index"
@@ -80,15 +83,24 @@ export default {
   created() {
     // fetch data from firestore
     db.collection("meetings")
+    .where('leader', '==', this.$store.state.Email)
+    .orderBy('leader')
+  
       .get()
       .then(snapshot => {
         snapshot.forEach(doc => {
-          let meeting = doc.data();
-
-          meeting.id = doc.id;
-          this.meetings.push({ ...meeting, id: doc.id });
+ 
+          this.meetings.push({ ...doc.data(), id: doc.id });
         });
       });
+      db.collection("meetings").where('members', 'array-contains', this.$store.state.Email)
+    .get()
+    .then(snapshot => {
+      snapshot.forEach(doc => {
+       
+        this.meetings.push({ ...doc.data(), id: doc.id });
+      });
+    });
   },
   computed: {
     UserEmail() {

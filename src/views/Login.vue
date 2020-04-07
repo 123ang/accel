@@ -40,7 +40,7 @@ export default {
             if (user) {
               store.commit("IsLoggedIn", true);
               store.commit("Email", user.email);
-              router.push("Index");
+              router.push("/");
             } else {
                router.push("/Login");
             }
