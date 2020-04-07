@@ -80,7 +80,7 @@ export default {
       this.$router.push("/Login");
     },
     dashboard: function() {
-      this.$router.push("/Index");
+      this.$router.push("/");
     }
   },
   computed: {
