@@ -11,9 +11,7 @@
     </a> <br><br><br>
     <div
       class="card"
-      v-for="meeting in meetings"
-      :key="meeting.id"
-    >
+      v-for="meeting in listmeetings" :key="meeting.id">
       <div class="card-content">
         <i
           v-if="meeting.leader == UserEmail"
@@ -52,6 +50,7 @@
 
 <script>
 import db from "@/firebase/init";
+import _ from 'lodash';
 export default {
   name: "Index",
 
@@ -82,29 +81,49 @@ export default {
   },
   created() {
     // fetch data from firestore
+ 
     db.collection("meetings")
     .where('leader', '==', this.$store.state.Email)
-    .orderBy('leader')
-  
-      .get()
+       .get()
       .then(snapshot => {
         snapshot.forEach(doc => {
- 
           this.meetings.push({ ...doc.data(), id: doc.id });
         });
       });
-      db.collection("meetings").where('members', 'array-contains', this.$store.state.Email)
+      db.collection("meetings")
+      .where('members', 'array-contains', this.$store.state.Email)
     .get()
     .then(snapshot => {
       snapshot.forEach(doc => {
-       
         this.meetings.push({ ...doc.data(), id: doc.id });
       });
     });
+    
   },
+  
   computed: {
     UserEmail() {
       return this.$store.state.Email;
+    },
+    listmeetings: function () {
+      var d = new Date();
+      var year = d.getFullYear() 
+      var month = d.getMonth()+1
+      var date = d.getDate()
+      if(month < 10) {
+        month = '0' + month
+      }
+      if(date < 10) {
+        date = '0' + date
+      }
+      var fulldate = year + "-" + month + "-" + date 
+      
+      var sort_data = _.orderBy(this.meetings, ['date','start_time'] , ['asc','asc']); 
+      var filtered_data =  _.filter(sort_data, function(sort_data) {
+                              return sort_data.date >= fulldate;
+                          });
+      console.log(filtered_data);
+      return filtered_data; 
     }
   }
 };
