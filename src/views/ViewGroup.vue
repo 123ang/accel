@@ -3,7 +3,7 @@
 
     <div
       v-if="meeting"
-      class="edit-meeting container z-depth-1"
+      class="edit-smoothie container z-depth-1"
     >
 
       <h2 class="indigo-text center-align">Edit {{ meeting.title }} Meeting</h2>
@@ -123,8 +123,8 @@ export default {
     editMeetings() {
       if (this.meeting.title) {
         this.feedback = null;
-        // update meeting in firestore
-        db.collection("meeting")
+        // update meetings in firestore
+        db.collection("meetings")
           .doc(this.EditCaseID)
           .update({
             title: this.meeting.title,
@@ -142,12 +142,12 @@ export default {
             console.log(err);
           });
       } else {
-        this.feedback = "You must enter a meeting title";
+        this.feedback = "You must enter a meetings title";
       }
     },
     addMember() {
       if (this.another) {
-        db.collection("meeting")
+        db.collection("meetings")
           .doc(this.EditCaseID)
           .update({
             members: firebase.firestore.FieldValue.arrayUnion(this.another)
@@ -160,7 +160,7 @@ export default {
       }
     },
     deleteMember(member) {
-      db.collection("meeting")
+      db.collection("meetings")
         .doc(this.EditCaseID)
         .update({
           members: firebase.firestore.FieldValue.arrayRemove(member)
@@ -168,18 +168,34 @@ export default {
     }
   },
   created() {
-    
-    db.collection("meetings").doc(this.$store.state.EditCaseID)
-    .get()
-    .then(doc => {    
-      this.meeting = doc.data();
-      this.meeting.id = doc.id;
-      console.log(this.meeting)  
+    // Getting real time update on the meeting data
+    // this.EditCaseID is the doc.id that you need to edit the meeting data. This information is
+    // taken from VueX store i form of EditCaseID. Go to computed to see how to extract data from VueX store.
+    db.collection("meetings")
+      .doc(this.EditCaseID)
+      .onSnapshot(
+        docSnapshot => {
+          this.meeting = docSnapshot.data();
+        },
+        err => {
+          console.log(`Encountered error: ${err}`);
+        }
+      );
+    /*
+    let ref = db
+      .collection("smoothies")
+      .where("slug", "==", this.$route.params.smoothie_slug);
+    ref.get().then(snapshot => {
+      snapshot.forEach(doc => {
+        this.smoothie = doc.data();
+        this.smoothie.id = doc.id;
+      });
     });
-
+    */
   },
   computed: {
     EditCaseID() {
+      console.log("here", this.$store.state.EditCaseID);
       return this.$store.state.EditCaseID;
     },
     UserEmail() {
@@ -190,20 +206,20 @@ export default {
 </script>
  
 <style>
-.edit-meeting {
+.edit-smoothie {
   margin-top: 60px;
   padding: 20px;
   max-width: 500px;
 }
-.edit-meeting h2 {
+.edit-smoothie h2 {
   font-size: 2em;
   margin: 20px auto;
 }
-.edit-meeting .field {
+.edit-smoothie .field {
   margin: 20px auto;
   position: relative;
 }
-.edit-meeting .delete {
+.edit-smoothie .delete {
   position: absolute;
   right: 0;
   bottom: 16px;

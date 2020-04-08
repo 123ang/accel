@@ -74,7 +74,19 @@
           @click="deleteMember(mem)"
         >delete</i>
       </div>
-      <div class="field add-member">
+      <div class="field add-group">
+        <label for="add-group">Choose a group that you created:</label>
+        <select v-model="selectedGroup">
+            <option
+              disabled
+              value=""
+            >Please select one</option>
+            <option v-for="group in groups" :key="group.id" v-bind:value="group.id">{{group.title}}</option>
+        </select>
+        </div>
+        
+        
+        <div class="field add-member">
         <label for="add-member">Add an member (press tab to add):</label>
         <input
           type="text"
@@ -108,7 +120,10 @@ export default {
       start_time: null,
       end_time: null,
       link:null,
-      description:null
+      description:null,
+      groups:[],
+      selectedGroup:null,
+     
     };
   },
   methods: {
@@ -128,7 +143,7 @@ export default {
             description: this.description
           })
           .then(() => {
-            this.$router.push({ name: "Index" });
+            this.$router.push({ name: "Meeting" });
           })
           .catch(err => {
             console.log(err);
@@ -150,7 +165,19 @@ export default {
       this.members = this.members.filter(member => {
         return member != mem;
       });
-    }
+    },
+    
+  },
+  created() {
+    // fetch data from firestore
+    db.collection("groups")
+    .where('leader', '==', this.$store.state.Email)
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          this.groups.push({ ...doc.data(), id: doc.id });
+        });
+      });
   },
   computed: {
     UserEmail() {

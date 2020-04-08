@@ -10,8 +10,8 @@ const store = new Vuex.Store({
 
     isLoggedIn: false,
     Email: false,
-    EditCaseID: false
-
+    EditCaseID: false,
+    GroupID: false
   },
   getters: {
     
@@ -25,6 +25,9 @@ const store = new Vuex.Store({
     },
     EditCaseID(state, data) {
       state.EditCaseID = data
+    },
+    GroupID(state,data) {
+      state.GroupID = data
     }
 
   },

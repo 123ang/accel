@@ -4,7 +4,7 @@
       <div class="nav-content">
         <v-row>
           <v-col>
-          <router-link :to="{ name: 'Index' }">
+          <router-link :to="{ name: 'Meeting' }">
             <v-img
               contain
               max-height="100px"
@@ -23,8 +23,15 @@
                 height: 70px;
                 width: 100px;"
             v-if="isLoggedIn"
-            v-on:click="dashboard"
-          >Dashboard</v-btn>
+            v-on:click="meeting"
+          >Meeting</v-btn>
+          <v-btn 
+          style="margin-left: 20px;
+                height: 70px;
+                width: 100px;"
+            v-if="isLoggedIn"
+            v-on:click="group"
+          >Group</v-btn>
           <v-btn         
           style="margin-left: 20px;
                 height: 70px;
@@ -79,8 +86,11 @@ export default {
     login: function() {
       this.$router.push("/Login");
     },
-    dashboard: function() {
-      this.$router.push("/");
+    meeting: function() {
+      this.$router.push("/meeting");
+    },
+    group: function() {
+      this.$router.push("/group");
     }
   },
   computed: {

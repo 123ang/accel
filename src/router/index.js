@@ -1,8 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Index from '@/views/Index.vue'
+import Meeting from '@/views/Meeting.vue'
 import AddMeeting from '@/views/AddMeeting'
 import EditMeeting from '@/views/EditMeeting'
+import ViewMeeting from '@/views/ViewMeeting'
+import Group from '@/views/Group.vue'
+import AddGroup from '@/views/AddGroup'
+import EditGroup from '@/views/EditGroup'
+import ViewGroup from '@/views/ViewGroup'
 import Login from '@/views/Login'
 import Register from '@/views/Register'
 import store from '../store' 
@@ -12,8 +17,16 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Index',
-    component: Index,
+    name: 'Meeting',
+    component: Meeting,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/meeting',
+    name: 'Meeting',
+    component: Meeting,
     meta: {
       requiresAuth: true
     }
@@ -27,9 +40,49 @@ const routes = [
     }
   },
   {
-    path: '/EditMeeting',
+    path: '/edit-meeting',
     name: 'EditMeeting',
     component: EditMeeting,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/view-meeting',
+    name: 'ViewMeeting',
+    component: ViewMeeting,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/group',
+    name: 'Group',
+    component: Group,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/add-group',
+    name: 'AddGroup',
+    component: AddGroup,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/edit-group',
+    name: 'EditGroup',
+    component: EditGroup,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/view-group',
+    name: 'ViewGroup',
+    component: ViewGroup,
     meta: {
       requiresAuth: true
     }

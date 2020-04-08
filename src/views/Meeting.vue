@@ -18,7 +18,9 @@
           class="material-icons delete"
           @click="deletemeeting(meeting.id)"
         >delete</i>
-        <h2 class="indigo-text">{{ meeting.title }}</h2>
+        
+        <h2 class="indigo-text py-0 w-1/4 pointer" v-on:click.prevent="viewMeeting(meeting.id)"> {{ meeting.title }}</h2>
+        
         <v-row>Meeting Date: {{ meeting.date }}</v-row>
         <v-row>Time: {{ meeting.start_time }} - {{ meeting.end_time }}</v-row>
         <v-row>Description: {{ meeting.description }}</v-row>
@@ -52,7 +54,7 @@
 import db from "@/firebase/init";
 import _ from 'lodash';
 export default {
-  name: "Index",
+  name: "Meeting",
 
   data() {
     return {
@@ -62,7 +64,11 @@ export default {
   methods: {
     editMeeting(id) {
       this.$store.commit("EditCaseID", id);
-      this.$router.push("/EditMeeting");
+      this.$router.push("/edit-meeting");
+    },
+    viewMeeting(id) {
+      this.$store.commit("EditCaseID", id);
+      this.$router.push("/view-meeting");
     },
     deletemeeting(id) {
       // delete doc from firestore
@@ -148,5 +154,9 @@ export default {
   cursor: pointer;
   color: #aaa;
   font-size: 1.4em;
+}
+
+.pointer {
+  cursor: pointer;
 }
 </style>
