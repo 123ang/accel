@@ -84,7 +84,7 @@
           >
           <i
             class="material-icons delete"
-            @click="deleteMember(mem)"
+            @click="deleteGroupMember(mem)"
           >delete</i>
         </div>
   
@@ -134,6 +134,11 @@ export default {
   methods: {
     addMeeting() {
       if (this.title) {
+        if(this.selectedGroup != null) {
+          for (var i = 0; i < this.selectedGroup.length; i++) {
+              this.members.push(this.selectedGroup[i])
+          }
+        }
         this.feedback = null;
         //save Meeting to firestore
         db.collection("meetings")
@@ -158,6 +163,7 @@ export default {
       }
     },
     addMember() {
+     
       if (this.another) {
         this.members.push(this.another);
         this.another = null;
@@ -171,7 +177,11 @@ export default {
         return member != mem;
       });
     },
-   
+   deleteGroupMember(mem) {
+      this.selectedGroup = this.selectedGroup.filter(member => {
+        return member != mem;
+      });
+    },
  
   },
   created() {
