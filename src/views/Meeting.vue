@@ -1,5 +1,5 @@
 <template>
-  <div class="index container grey lighten-3">
+  <div class="index container grey lighten-3 ">
 
    
     <div
