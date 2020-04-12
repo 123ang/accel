@@ -1,7 +1,7 @@
 <template>
  <div class="register container z-depth-1">
   <h2 class="center-align indigo-text">Login</h2>
-    <form @submit.prevent="addMeeting">
+  
       <div class="field email">
         <label for="email">Email:</label>
         <input type="email" id="email" v-model="email">
@@ -14,7 +14,7 @@
         <button v-on:click.prevent="login(email,password)" class="btn btn-large btn-extended grey lighten-4 black-text"  type="submit">Login</button>
         <button v-on:click="register" class="btn btn-large btn-extended grey lighten-4 black-text">Register</button>
       </div>
-    </form>
+  
 </div>
      
 </template>

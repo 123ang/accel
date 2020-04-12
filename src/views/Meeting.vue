@@ -1,24 +1,29 @@
 <template>
-  <div class="index container">
+  <div class="index container grey lighten-3">
 
-    <a
-      href=""
-      class="btn-floating btn-large  right pink"
-    >
-      <router-link :to="{ name: 'AddMeeting' }">
-        <i class="material-icons">add</i>
-      </router-link>
-    </a> <br><br><br>
+   
     <div
-      class="card"
+      class="card yellow lighten-4"
       v-for="meeting in listmeetings" :key="meeting.id">
-      <div class="card-content">
-        <i
+      <div class="choose right-align">
+        <v-btn
+          class="card-button"
           v-if="meeting.leader == UserEmail"
-          class="material-icons delete"
           @click="deletemeeting(meeting.id)"
-        >delete</i>
-        
+        >delete</v-btn>
+        <v-btn
+            class="card-button"
+            v-if="meeting.leader == UserEmail"
+            v-on:click.prevent="editMeeting(meeting.id)"
+        >edit      
+        </v-btn>
+        <v-btn
+            class=""
+             v-on:click.prevent="viewMeeting(meeting.id)"
+        >view      
+        </v-btn>
+      </div>
+        <div class="card-content">
         <h2 class="indigo-text py-0 w-1/4 pointer" v-on:click.prevent="viewMeeting(meeting.id)"> {{ meeting.title }}</h2>
         
         <v-row>Meeting Date: {{ meeting.date }}</v-row>
@@ -36,16 +41,7 @@
           </li>
         </ul>
       </div>
-      <v-btn
-        v-if="meeting.leader == UserEmail"
-        fab
-        class="btn-floating btn-large halfway-fab pink"
-        v-on:click.prevent="editMeeting(meeting.id)"
-      >
-
-        <i class="material-icons edit">edit</i>
-
-      </v-btn>
+      
     </div>
   </div>
 </template>
@@ -136,6 +132,13 @@ export default {
 </script>
 
 <style>
+.index{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 30px;
+  margin-top: 60px;
+  
+}
 .index h2 {
   font-size: 1.8em;
   text-align: center;
@@ -159,4 +162,15 @@ export default {
 .pointer {
   cursor: pointer;
 }
+
+.card-button{
+  margin-right:10px
+}
+
+.choose{
+  position: relative;
+  top: -9%;
+}
+
+
 </style>
