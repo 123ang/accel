@@ -5,5 +5,10 @@ service cloud.firestore {
   // match documents in users collection
   match /meetings/{meetingId}{
  allow read, write: if request.auth.uid != null;
-  }}
+  }
+match /groups/{groupId}{
+ allow read, write: if request.auth.uid != null;
+  }
+  }
+  
   }

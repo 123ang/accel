@@ -10,6 +10,7 @@ import EditGroup from '@/views/EditGroup'
 import ViewGroup from '@/views/ViewGroup'
 import Login from '@/views/Login'
 import Register from '@/views/Register'
+import ForgotPassword from '@/views/ForgotPassword'
 import store from '../store' 
 
 Vue.use(VueRouter)
@@ -96,6 +97,11 @@ const routes = [
     path: '/Register',
     name: 'Register',
     component: Register,
+  },
+  {
+    path: '/ForgotPassword',
+    name: 'ForgotPassword',
+    component: ForgotPassword,
   },
 ]
   

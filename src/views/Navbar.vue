@@ -36,7 +36,7 @@
             v-if="isLoggedIn"
             v-on:click="group"
           >Create Contact Group</v-btn>
-          <v-btn         
+          <v-btn       
             text
             large
             color="white"
@@ -113,9 +113,7 @@ export default {
 </script>
 
 <style>
-.but {
-  margin-left: 20px;
-  height: 70px;
-  width: 100px;
+.v-btn {
+  font-weight:bold;
 }
 </style>

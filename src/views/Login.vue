@@ -1,18 +1,25 @@
 <template>
- <div class="register container z-depth-1">
-  <h2 class="center-align indigo-text">Login</h2>
+ <div class="register container z-depth-1" style="background-color:white">
+  <h2 
+    class="center-align black-text" 
+    style=" 
+    font-weight: bold;
+    text-decoration: underline;">
+    Login
+  </h2>
   
-      <div class="field email">
-        <label for="email">Email:</label>
+      <div class="field email mx-4">
+        <label style="" for="email">Email Address:</label>
         <input type="email" id="email" v-model="email">
       </div>
-      <div>
-        <label for="password">Password:</label>
+      <div class="field password mx-4">
+        <label style="font-weight:bold" for="password">Password:</label>
         <input type="password" id="password" v-model="password">
       </div>
+      <p  class="field" style="color:#29b6f6; font-weight:bold" v-on:click.prevent="forgotPassword()"> Forget your password? </p>
       <div class="field center-align">
-        <button v-on:click.prevent="login(email,password)" class="btn btn-large btn-extended grey lighten-4 black-text"  type="submit">Login</button>
-        <button v-on:click="register" class="btn btn-large btn-extended grey lighten-4 black-text">Register</button>
+        <button v-on:click.prevent="login(email,password)" class="btn1 btn-large btn-extended grey lighten-4 black-text"  type="submit">Sign In</button>
+        <button v-on:click="register" class="btn1 btn-large btn-extended grey lighten-4 black-text" style="margin-left:200px">Register</button>
       </div>
   
 </div>
@@ -60,7 +67,20 @@ export default {
 </script>
 
 <style>
-.btn {
-  margin-left: 40px ;
+label{
+  font-weight:bold;
+  color: black;
 }
+.btn1 {
+  font-weight:bold;
+  margin-bottom:20%;
+  margin-top:10%;
+}
+
+.field {
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 20px;
+}
+
 </style>

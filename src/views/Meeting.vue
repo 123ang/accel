@@ -1,5 +1,5 @@
 <template>
-  <div class="index container grey lighten-3 ">
+  <div class="index container">
 
    
     <div
@@ -13,14 +13,14 @@
         >delete</v-btn>
         <v-btn
             class="card-button"
+             v-on:click.prevent="viewMeeting(meeting.id)"
+        >view      
+        </v-btn>
+        <v-btn
+         
             v-if="meeting.leader == UserEmail"
             v-on:click.prevent="editMeeting(meeting.id)"
         >edit      
-        </v-btn>
-        <v-btn
-            class=""
-             v-on:click.prevent="viewMeeting(meeting.id)"
-        >view      
         </v-btn>
       </div>
         <div class="card-content">
@@ -155,7 +155,7 @@ export default {
   top: 4px;
   right: 4px;
   cursor: pointer;
-  color: #aaa;
+
   font-size: 1.4em;
 }
 

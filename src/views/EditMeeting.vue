@@ -7,7 +7,7 @@
     >
 
       <h2 class="indigo-text center-align">Edit {{ meeting.title }} Meeting</h2>
-      <form @submit.prevent="editMeetings">
+      <form @submit.prevent="editMeeting">
         <div class="field title">
           <label for="title">Meeting title:</label>
           <input
@@ -120,11 +120,11 @@ export default {
     };
   },
   methods: {
-    editMeetings() {
+    editMeeting() {
       if (this.meeting.title) {
         this.feedback = null;
         // update meeting in firestore
-        db.collection("meeting")
+        db.collection("meetings")
           .doc(this.EditCaseID)
           .update({
             title: this.meeting.title,

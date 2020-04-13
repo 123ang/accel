@@ -5,11 +5,16 @@
     <router-view />
   </div>
   <v-footer
-      class="justify-center foot"
-      color="#292929"
+      class="justify-center"
+      color="white"
+      height="100"
     >
-      <div class="title font-weight-light grey--text text--lighten-5 text-center" style="color:white;">
-        &copy; {{ (new Date()).getFullYear() }} Accel
+      <div
+        style="margin: 0 auto;
+              text-align: center;
+              font-weight:bold"
+      >
+        Copyright &copy; {{ (new Date()).getFullYear() }} Accel. All Rights reserved.
       </div>
     </v-footer>
   </div>
@@ -30,10 +35,9 @@ export default {
 #container {
   min-height: calc(100vh - 200px);
   padding: 40px 40px 0 40px;
+  background: #E0E0E0;
 }
 
-.foot {
-  height: 100px;
-}
+
 </style>
 
