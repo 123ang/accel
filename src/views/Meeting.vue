@@ -49,6 +49,9 @@
 <script>
 import db from "@/firebase/init";
 import _ from 'lodash';
+import Vue from "vue"
+import VueSweetalert2 from 'vue-sweetalert2';
+
 export default {
   name: "Meeting",
 
@@ -67,18 +70,35 @@ export default {
       this.$router.push("/view-meeting");
     },
     deletemeeting(id) {
-      // delete doc from firestore
-      db.collection("meetings")
-        .doc(id)
-        .delete()
-        .then(() => {
-          this.meetings = this.meetings.filter(meeting => {
-            return meeting.id != id;
-          });
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      Vue.use(VueSweetalert2);
+      this.$swal({
+          text:"Are you sure you want to delete this meeting?",
+          title:"Delete Meeting", 
+          showCancelButton: true,
+          type:"error",
+          confirmButtonText: 'Yes Delete it!',
+          cancelButtonText: 'No, Keep it!',
+          showLoaderOnConfirm: true
+        }
+        ).then((result) => {
+          if(result.value) {
+            db.collection("meetings")
+                  .doc(id)
+                  .delete()
+                  .then(() => {
+                    this.meetings = this.meetings.filter(meeting => {
+                      return meeting.id != id;
+                    });
+                  })
+                  .catch(err => {
+                    console.log(err);
+                  });
+          }
+          
+          
+    
+    });
+      
     }
   },
   created() {
