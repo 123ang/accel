@@ -48,9 +48,10 @@
 
 <script>
 import db from "@/firebase/init";
+import Vue from "vue"
+import VueSweetalert2 from 'vue-sweetalert2';
 export default {
-  name: "Meeting",
-
+  name: "Group",
   data() {
     return {
       groups: []
@@ -66,20 +67,39 @@ export default {
       this.$router.push("/view-group");
     },
     deleteGroup(id) {
-      // delete doc from firestore
-      db.collection("groups")
-        .doc(id)
-        .delete()
-        .then(() => {
-          this.groups = this.groups.filter(group => {
-            return group.id != id;
-          });
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-  },
+      Vue.use(VueSweetalert2);
+      this.$swal({
+          text:"Are you sure you want to delete this group?",
+          title:"Delete Meeting", 
+          showCancelButton: true,
+          type:"error",
+          confirmButtonText: 'Yes Delete it!',
+          cancelButtonText: 'No, Keep it!',
+          showLoaderOnConfirm: true
+        }
+        ).then((result) => {
+          if(result.value) {
+            db.collection("groups")
+                .doc(id)
+                .delete()
+                .then(() => {
+                  this.groups = this.groups.filter(group => {
+                    return group.id != id;
+                  });
+                })
+                .catch(err => {
+                  console.log(err);
+                });
+            }
+          }
+          
+          
+    
+
+      
+    )
+      
+  }},
   created() {
     // fetch data from firestore
  
