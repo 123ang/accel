@@ -4,6 +4,7 @@
   <div id="container">
     <router-view />
   </div>
+  <div style="background-color: #E0E0E0;" >  <br> <br> </div>
   <v-footer
       class="justify-center"
       color="white"
@@ -36,6 +37,7 @@ export default {
   min-height: calc(100vh - 200px);
   padding: 40px 40px 0 40px;
   background: #E0E0E0;
+
 }
 
 

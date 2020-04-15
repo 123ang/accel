@@ -1,5 +1,5 @@
 <template>
- <div class="register container z-depth-1" style="background-color:white">
+ <div class="login container z-depth-1" style="background-color:white">
   <h2 
     class="center-align black-text" 
     style=" 

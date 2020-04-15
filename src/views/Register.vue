@@ -1,6 +1,6 @@
 <template>
 
-  <div class="register container z-depth-1">
+  <div class="register container z-depth-1" style="background-color:white">
     <h2 class="center-align indigo-text">Register</h2>
     <form>
       <div class="field first_name">
@@ -27,7 +27,7 @@
           v-model="email"
         >
       </div>
-      <div>
+      <div class="field password"> 
         <label for="password">Password:</label>
         <input
           type="password"
@@ -35,7 +35,7 @@
           v-model="password"
         >
       </div>
-      <div>
+      <div class="field gender">
         <label for="gender">Gender:</label>
         <select
           id="gender"
@@ -50,7 +50,7 @@
         </select>
         <v-divider></v-divider>
       </div>
-      <div>
+      <div class="field dob">
         <label for="dob">Date of Birth:</label>
         <input
           type="date"
