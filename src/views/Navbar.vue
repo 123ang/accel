@@ -2,7 +2,7 @@
   <div class="navbar">
     <nav class="nav-extended white darken-2">
       <div class="nav-content">
-        <v-row>
+        <v-row style="margin-bottom:0px">
           <v-col>
           <router-link :to="{ name: 'Meeting' }">
             <v-img

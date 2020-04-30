@@ -1,5 +1,5 @@
 <template>
-  <div class="add-meeting container z-depth-1"> 
+  <div class="add-meeting container z-depth-1" style="background-color:white"> 
     <h2 class="center-align indigo-text">Add New Schedule Meeting</h2>
     <form @submit.prevent="addMeeting">
       <div class="field title">

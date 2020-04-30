@@ -1,59 +1,64 @@
 <template>
- <div class="register container z-depth-1" style="background-color:white">
-  <h2 class="center-align black-text">Forget Password</h2>
-  
-     
-  
-</div>
-     
+  <div class="login container z-depth-1" style="background-color:white">
+   
+    <h2 
+    class="center-align black-text" 
+    style=" 
+    font-weight: bold;
+    text-decoration: underline;">
+      Password Reset
+    </h2>
+    <div class="field email mx-4">
+        <label style="" for="email">Please enter your valid email address:</label>
+        <input type="email" id="email" v-model="email">
+    </div>
+    <div class="field center-align">
+        <button   v-on:click.prevent="reset(email)" class="btn1 btn-large btn-extended grey lighten-4 black-text" style="margin-left:200px">Reset Password</button>
+    </div> 
+            
+   
+           
+ 
+  </div>
 </template>
-
 <script>
-import store from "../store";
-import router from "../router";
 import firebase from "firebase";
+import router from "../router";
+
 export default {
-  data() {
+  name: "login",
+  data: function() {
     return {
-      email: null,
-      password: null
+      email: "",
+      submit: false
     };
   },
   methods: {
-    login: function(email, password) {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password)
-        .then(
-          firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-              store.commit("IsLoggedIn", true);
-              store.commit("Email", user.email);
-              router.push("/");
-            } else {
-               router.push("/Login");
-            }
-          })
-        );
+    reset: function(email) {
+      ////
+      var auth = firebase.auth();
 
-      event.preventDefault();
-    },
-      register: function(){
-        this.$router.push("/Register");
-      },
-    forgotPassword: function() {
-      this.$router.push("/ForgotPassword");
+      auth
+        .sendPasswordResetEmail(email)
+        .then(function() {
+          alert(
+            // Email sent.
+            "Instructions on how to reset your password has been sent to " +
+              email +
+              ". Please click the link in the mail to start the reset process."
+          );
+          //Redirect to login
+          router.push("/Login");
+        })
+        .catch(function(error) {
+          // An error happened.
+          alert(error.message);
+        });
+
+      ///
+
+      this.email = "";
     }
   }
 };
 </script>
-
-<style>
-label{
-  font-weight:bold;
-  color: black;
-}
-.btn {
-  margin-left: 40px ;
-}
-</style>

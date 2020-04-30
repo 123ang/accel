@@ -18,8 +18,14 @@
       </div>
       <p  class="field" style="color:#29b6f6; font-weight:bold" v-on:click.prevent="forgotPassword()"> Forget your password? </p>
       <div class="field center-align">
-        <button v-on:click.prevent="login(email,password)" class="btn1 btn-large btn-extended grey lighten-4 black-text"  type="submit">Sign In</button>
-        <button v-on:click="register" class="btn1 btn-large btn-extended grey lighten-4 black-text" style="margin-left:200px">Register</button>
+      <v-row>
+        <v-col style="margin-bottom: 20px;">
+          <button v-on:click.prevent="login(email,password)" class="btn1 btn-large btn-extended grey lighten-4 black-text"  type="submit">Sign In</button>
+        </v-col>
+        <v-col>
+          <button v-on:click="register" class="btn1 btn-large btn-extended grey lighten-4 black-text" >Register</button>
+        </v-col>
+      </v-row>
       </div>
   
 </div>
@@ -73,8 +79,6 @@ label{
 }
 .btn1 {
   font-weight:bold;
-  margin-bottom:20%;
-  margin-top:10%;
 }
 
 .field {
