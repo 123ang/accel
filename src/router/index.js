@@ -24,14 +24,7 @@ const routes = [
       requiresAuth: true
     }
   },
-  {
-    path: '/meeting',
-    name: 'Meeting',
-    component: Meeting,
-    meta: {
-      requiresAuth: true
-    }
-  },
+
   {
     path: '/add-meeting',
     name: 'AddMeeting',

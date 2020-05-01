@@ -72,7 +72,6 @@
       </v-app-bar>
     </div>
     <div class="hidden-md-and-up">
-
       <v-app-bar
         app
         color="white"
@@ -127,7 +126,7 @@
               
           <v-btn 
             text
-            large
+            small
             color="black"
             height="80"
             v-if="isLoggedIn"
@@ -136,7 +135,7 @@
           >Scehdule Meeting</v-btn>
           <v-btn 
             text
-            large
+            small
             color="black"
             height="80"
             v-if="isLoggedIn"
@@ -145,7 +144,7 @@
           >Create Contact Group</v-btn>
           <v-btn       
             text
-            large
+            small
             color="black"
             height="80"
             v-if="!isLoggedIn"
@@ -154,7 +153,7 @@
           >Login</v-btn>
           <v-btn         
             text
-            large
+            small
             color="black"
             height="80"
             v-if="!isLoggedIn"
@@ -163,11 +162,10 @@
           >Register</v-btn>
           <v-btn        
             text
-            large
+            small
             color="black"
             height="80"
             v-if="isLoggedIn"
-            v-on:click.prevent="closeNav()"
             v-on:click="logout"
           >Logout</v-btn>
 
@@ -176,6 +174,11 @@
         </v-navigation-drawer>
       </v-app-bar>
     </div>
+    <div class="hidden-md-and-up"
+         style="
+          height: 100px;
+          color:#E0E0E0; "> </div>
+    
   </v-app>
 </template>
 
@@ -228,8 +231,13 @@ export default {
 };
 </script>
 
-<style>
+<style lang="css">
 .v-btn {
   font-weight:bold;
 }
+
+.v-application--wrap {
+  min-height: 8vh !important;
+}
+
 </style>

@@ -4,7 +4,7 @@
   <div id="container">
     <router-view />
   </div>
-  <div style="background-color: #E0E0E0;" >  <br> <br> </div>
+  <div style="background-color: #E0E0E0;" ></div>
   <v-footer
       class="justify-center"
       color="white"
