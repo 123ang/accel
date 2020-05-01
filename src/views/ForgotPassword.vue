@@ -8,15 +8,17 @@
     text-decoration: underline;">
       Password Reset
     </h2>
-    <div class="field email mx-4">
-        <label style="" for="email">Please enter your valid email address:</label>
+ 
+ 
+    <div class="field email mx-4 center-align">
+        <label style="" for="email">Enter the email address you used for registration:</label>
         <input type="email" id="email" v-model="email">
     </div>
+  
     <div class="field center-align">
-        <button   v-on:click.prevent="reset(email)" class="btn1 btn-large btn-extended grey lighten-4 black-text" style="margin-left:200px">Reset Password</button>
-    </div> 
-            
-   
+        <button v-on:click.prevent="reset(email)" class="btn1 btn-large btn-extended grey lighten-4 black-text" >Reset</button>    </div> 
+ 
+
            
  
   </div>
@@ -62,3 +64,4 @@ export default {
   }
 };
 </script>
+
