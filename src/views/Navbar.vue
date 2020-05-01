@@ -131,6 +131,7 @@
             color="black"
             height="80"
             v-if="isLoggedIn"
+            v-on:click.prevent="closeNav()"
             v-on:click="meeting"
           >Scehdule Meeting</v-btn>
           <v-btn 
@@ -139,6 +140,7 @@
             color="black"
             height="80"
             v-if="isLoggedIn"
+            v-on:click.prevent="closeNav()"
             v-on:click="group"
           >Create Contact Group</v-btn>
           <v-btn       
@@ -147,6 +149,7 @@
             color="black"
             height="80"
             v-if="!isLoggedIn"
+            v-on:click.prevent="closeNav()"
             v-on:click="login"
           >Login</v-btn>
           <v-btn         
@@ -155,6 +158,7 @@
             color="black"
             height="80"
             v-if="!isLoggedIn"
+            v-on:click.prevent="closeNav()"
             v-on:click="register"
           >Register</v-btn>
           <v-btn        
@@ -163,6 +167,7 @@
             color="black"
             height="80"
             v-if="isLoggedIn"
+            v-on:click.prevent="closeNav()"
             v-on:click="logout"
           >Logout</v-btn>
 
